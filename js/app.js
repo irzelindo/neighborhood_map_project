@@ -91,6 +91,8 @@ function ViewModel() {
         if (location.title.toLowerCase().includes(this.findPlace().toLowerCase())) {
           result.push(location);
           self.markers[i].setVisible(true);
+        } else {
+          self.markers[i].setVisible(false);
         }
       }
       return result;
