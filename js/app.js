@@ -10,7 +10,7 @@ function ViewModel() {
   self.markers = [];
 
   self.defaultIcon = 'img/default-icon.png'; // default icon image
-  self.hoverIcon = 'img/hover-icon.png'; // change icon image when mouse over
+  self.hoverIcon = 'img/hover-icon.png'; // change icon image on mouse click
 
   // Initializing places search box
   self.findPlace = ko.observable('');
@@ -40,8 +40,8 @@ function ViewModel() {
         self.latitude = points[i].location.lat;
         self.longitude = points[i].location.lng;
         self.phone_nr = points[i].contact.formattedPhone;
-        self.country_name = points[i].location.country
-        self.category_name = points[i].categories[0].name
+        self.country_name = points[i].location.country;
+        self.category_name = points[i].categories[0].name;
 
         // Creating a marker in each iteration
         self.marker = new google.maps.Marker({
@@ -63,15 +63,6 @@ function ViewModel() {
 
         // Adding events listeners for each marker
         self.marker.addListener('click', self.populateMark);
-
-        self.marker.addListener('mouseover', function() {
-          this.setIcon(self.hoverIcon);
-        });
-
-        self.marker.addListener('mouseout', function() {
-          this.setIcon(self.defaultIcon);
-        });
-
       }
       self.showIcons();
     }).fail(function() {
@@ -85,23 +76,23 @@ function ViewModel() {
     var result = [];
     if (self.findPlace()) {
       //console.log(self.findPlace());
-      for (var i = 0; i < self.markers.length; i++) {
-        //console.log('iter:' + i);
-        var location = self.markers[i];
+      for (var i = 0; i < self.sideList().length; i++) {
+        var location = self.sideList()[i];
         if (location.title.toLowerCase().includes(this.findPlace().toLowerCase())) {
           result.push(location);
-          self.markers[i].setVisible(true);
+          self.sideList()[i].setVisible(true);
+          self.sideList()[i].setIcon(self.hoverIcon);
         } else {
-          self.markers[i].setVisible(false);
+          self.sideList()[i].setVisible(false);
         }
       }
       return result;
-    } else {
+    } else if (self.findPlace() === '') {
       return self.sideList();
     }
   }, this);
 
-  this.populateMark = function(data) {
+  this.populateMark = function() {
     self.showInfoWindow(this, self.markerInfoWindow);
   };
 
@@ -117,7 +108,6 @@ function ViewModel() {
   };
 
   this.showInfoWindow = function(marker, infowindow) {
-
     if (infowindow.marker != marker) {
       infowindow.setContent('processing...');
       infowindow.marker = marker;
@@ -140,20 +130,21 @@ function ViewModel() {
         infowindow.marker = null;
         marker.setIcon(self.defaultIcon);
       });
+      marker.setIcon(self.hoverIcon);
       marker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout((function() {
         marker.setAnimation(null);
       }).bind(marker), 1000);
     }
-  }
+  };
 
   /* Set the width of the side navigation to 250px and the left margin of the page content to 350px */
   this.openNav = function() {
-    document.getElementById("mySidenav").style.width = "350px";
-    document.getElementById("map").style.marginLeft = "350px";
+    document.getElementById("mySidenav").style.width = "300px";
+    document.getElementById("map").style.marginLeft = "300px";
     $("#sidenav-icon").hide(500);
     $("#closebtn").show(500);
-  }
+  };
 
   /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
   this.closeNav = function() {
@@ -161,7 +152,7 @@ function ViewModel() {
     document.getElementById("map").style.marginLeft = "0";
     $("#closebtn").hide();
     $("#sidenav-icon").show(500);
-  }
+  };
 
 
 }
