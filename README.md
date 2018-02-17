@@ -23,5 +23,5 @@ To complete this project you will need to be familiar with:
  
  ### How to run the project ###
  
- To run this project you just need to clone it into you local host machine and open the file **index.html**
+ To run this project you just need to clone it into you local host machine and open the file **[index.html](https://rawgit.com/irzelindo/neighborhood_map_project/master/index.html)**
 
