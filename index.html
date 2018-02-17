@@ -18,38 +18,47 @@
 
 <body>
   <aside id="mySidenav" class="sidenav">
-    <a id="closebtn" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a id="closebtn" href="javascript:void(0)" class="closebtn" data-bind="click: closeNav">&times;</a>
+    <div class="row">
+      <h3 class="col-12 text-center"><strong>Neighborhood Map</strong></h3>
+    </div>
     <hr>
     <div class="row">
       <div class="col-1"></div>
       <div class="col-10">
         <div class="md-form">
-          <input type="text" id="location" class="form-control">
+          <input type="text" id="location" class="form-control" data-bind="textInput: findPlace, valueUpdate: 'afterkeydown'">
           <label for="form1" class="">find a place</label>
         </div>
       </div>
       <div class="col-1"></div>
     </div>
+    <div class="row">
+      <ul class="list-group col-12" data-bind="foreach: locationList">
+        <li href="#" class="list-group-item list-group-item-action" data-bind="text: title, click: $parent.populateMark"></li>
+      </ul>
+    </div>
   </aside>
 
   <!-- Use any element to open the sidenav -->
-  <span onclick="openNav()">
+  <span data-bind="click: openNav">
     <i id="sidenav-icon" class="material-icons sidenav-icon" style="font-size:36px">menu</i>
   </span>
 
   <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
   <div id="map">
   </div>
+  <!-- Knockout framework -->
+  <script src="js/lib/knockout-3.4.2.js"></script>
   <!-- JQuery -->
   <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
+
   <script type="text/javascript" src="js/app.js"></script>
-  <!-- Knockout framework -->
-  <script src="js/lib/knockout-3.4.2.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDd2tU4CMEeNpBPOgk7wR4_Do6w0QMpuW0&v=3&callback=initMap">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDd2tU4CMEeNpBPOgk7wR4_Do6w0QMpuW0&v=3&callback=createMap" onerror="cannotLoadMap()">
   </script>
 </body>
 

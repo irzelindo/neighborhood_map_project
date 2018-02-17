@@ -53,7 +53,7 @@
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 1em;
   color: #343a40;
   display: block;
   transition: 0.3s;
@@ -63,6 +63,12 @@
 
 .sidenav a:hover {
   color: #dc3545;
+}
+
+.sidenav li {
+  font-size: 15px;
+  margin-left: 10px;
+  width: 100%;
 }
 
 input[type=date], input[type=datetime-local], input[type=email], input[type=number], input[type=password], input[type=search-md], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], textarea.md-textarea {
@@ -101,6 +107,10 @@ button, input, optgroup, select, textarea {
   margin-left: 50px;
 }
 
+.sidenav a:hover {
+  color: #007bff;
+}
+
 /* Horizontal line to separate content from menu*/
 
 hr {
@@ -114,6 +124,6 @@ hr {
     padding-top: 15px;
   }
   .sidenav a {
-    font-size: 18px;
+    font-size: 15px;
   }
 }
